@@ -1,5 +1,6 @@
 # action.yml
 name: 'Analyse your HTTP response headers'
+author: 'Cian Leow'
 description: 'Quickly and easily assess the security of your HTTP response headers'
 branding:
   icon: 'check-circle'  
@@ -10,13 +11,16 @@ inputs:
     required: true
   grade:
     description: 'The desired security grade of your HTTP response headers'
-    required: true
+    required: false
+    default: A
 outputs:
   rating:
     description: 'The security rating of your HTTP response headers'
+    value: ${{ steps.query.outputs.rating }}
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.url }}
-    - ${{ inputs.grade }}
+  using: 'composite'
+  steps:
+    - name: Run the security headers query
+      id: query
+      run: ${{ github.action_path }}/entrypoint.sh ${{ inputs.url }} ${{ inputs.grade }}
+      shell: bash

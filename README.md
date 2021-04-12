@@ -1,5 +1,7 @@
 # Analyse your HTTP response headers
 
+This is a fork of https://github.com/marcuslindblom/security-headers using cURL natively.
+
 Quickly and easily assess the security of your HTTP response headers using using securityheaders.com
 
 A simple example:
@@ -21,7 +23,3 @@ jobs:
           url: ${{ secrets.SECURITY_HEADERS_URL }}
           grade: A
 ```
-
-Example output:
-
-![Output](https://p1.f0.n0.cdn.getcloudapp.com/items/8LurzpvN/Screenshot%202020-11-09%20at%2010.13.37.png)
